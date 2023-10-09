@@ -86,7 +86,3 @@ ehthumbs.db
 # Fichiers locaux
 *.
 *~
-
-pm2 start monitoror-custom-api/server.js --name monitoror-custom-api-4242 --watch
-
-pm2 start check-fiber/main.js --name check-fiber --watch --cron "0 */2 * * *"
