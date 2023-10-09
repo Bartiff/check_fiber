@@ -1,0 +1,91 @@
+# Dossiers et fichiers générés automatiquement
+node_modules/
+dist/
+*.log
+
+# Fichiers de configuration locaux
+.env
+
+# Fichiers temporaires
+.tmp/
+.DS_Store
+
+# Dépendances de développement
+devDependencies/
+npm-debug.log*
+
+# Dossiers et fichiers spécifiques à des outils particuliers
+coverage/
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers de sauvegarde de l'éditeur
+*~.nib
+
+# Fichiers de sauvegarde Visual Studio Code
+.vscode/
+
+# Cache ESLint
+.eslintcache
+
+# Cache npm
+.npm
+
+# Fichiers de sauvegarde JetBrains IDE
+.idea/
+*.iml
+
+# Dépendances Cypress
+cypress/
+
+# .lock-wscript
+.lock-wscript
+
+# pnpm
+pnpm-debug.log*
+
+# Yarn
+yarn-error.log
+
+# Fichiers de sauvegarde et fichiers temporaires générés par npm
+*.swp
+*~
+*.log
+*.bak
+
+# WebStorm
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/jsLibraryMappings.xml
+.idea/sonarlint
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Cache
+[Cc]ache
+*.log
+
+# Modules
+*.module
+
+# Temps
+[Tt]emp
+[Tt]mp
+*.tmp
+
+# Fichiers locaux
+*.
+*~
+
+# App
+datas/*
