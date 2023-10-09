@@ -57,3 +57,8 @@ export async function createDatasFile(datas, filename) {
   
   return comparisonData
 }
+
+export async function pause(milliseconds) {
+  
+  return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}

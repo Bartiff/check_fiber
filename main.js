@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import { freeRequest } from './src/freeRequest.js'
 import { thdRequest } from './src/thdRequest.js'
 import { senSMS } from './src/senSMS.js'
-import { createDatasFile } from './src/helpers.js'
+import { createDatasFile, pause } from './src/helpers.js'
 
 dotenv.config()
 const imb_number = process.env.IMB_NUMBER
@@ -29,6 +29,9 @@ async function main() {
     freeStatus = freeResponses.find(resp => resp !== null)
     await senSMS('Free', freeStatus, sms_config)
 
+    // 10 second pause
+    await pause(10000)
+
     // Run the THD request
     const getThdResponse = await thdRequest()
     const thdPromises = []
@@ -47,5 +50,4 @@ async function main() {
   }
 }
 
-// Appeler la fonction principale
 main()
