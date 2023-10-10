@@ -1,15 +1,15 @@
 import axios from 'axios'
 
-async function thdRequest() {
+async function thdRequest(localization, maxSites) {
   try {
     const response = await axios.post('https://eligibilite-thd.fr/eligibilite-thd/api/public/sites/rip/coords/THDB', {
-        latEast: 48.13983458890648,
-        latWest: 48.137804827036454,
-        lngNorth: -1.965825745066847,
-        lngSouth: -1.9687278952209608,
+        latEast: localization.latEast,
+        latWest: localization.latWest,
+        lngNorth: localization.lngNorth,
+        lngSouth: localization.lngSouth,
         statusFtth: ["ECE", "ECD", "SUS", "PDI", "DIS"],
         statusFtte: [],
-        maxSites: 7000,
+        maxSites: maxSites,
         idZone: null
       })
     

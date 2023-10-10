@@ -7,9 +7,16 @@ import { createDatasFile, pause } from './src/helpers.js'
 dotenv.config()
 const imb_number = process.env.IMB_NUMBER
 const sms_config = {
-  'user':process.env.SMS_USER,
-  'pass':process.env.SMS_PASS,
+  'user' : process.env.SMS_USER,
+  'pass' : process.env.SMS_PASS,
 }
+const localization = {
+  latEast : process.env.LAT_EAST,
+  latWest : process.env.LAT_WEST,
+  lngNorth : process.env.LNG_NORTH,
+  lngSouth : process.env.LNG_SOUTH,
+}
+const maxSites = process.env.MAX_SITES
 
 async function main() {
   let freeStatus = null
@@ -17,7 +24,7 @@ async function main() {
 
   try {
     // Run the Free request
-    const getFreeResponse = await freeRequest()
+    const getFreeResponse = await freeRequest(localization, maxSites)
     const freePromises = []
     getFreeResponse.features.forEach(async feature => {
       if (feature.properties.building_id === imb_number) {
@@ -33,7 +40,7 @@ async function main() {
     await pause(10000)
 
     // Run the THD request
-    const getThdResponse = await thdRequest()
+    const getThdResponse = await thdRequest(localization, maxSites)
     const thdPromises = []
     getThdResponse.forEach(async record => {
       if (record.dossier === imb_number) {
