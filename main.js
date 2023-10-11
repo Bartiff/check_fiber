@@ -1,10 +1,16 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 import dotenv from 'dotenv'
 import { freeRequest } from './src/freeRequest.js'
 import { thdRequest } from './src/thdRequest.js'
 import { senSMS } from './src/senSMS.js'
 import { createDatasFile, pause } from './src/helpers.js'
 
-dotenv.config()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+dotenv.config({ path: path.join(__dirname, '.env') })
+
 const imb_number = process.env.IMB_NUMBER
 const sms_config = {
   'user' : process.env.SMS_USER,
@@ -28,7 +34,7 @@ async function main() {
     const freePromises = []
     getFreeResponse.features.forEach(async feature => {
       if (feature.properties.building_id === imb_number) {
-        const promise = createDatasFile(feature.properties, 'freeDatas')
+        const promise = createDatasFile(feature.properties, __dirname + '/datas/freeDatas.json')
         freePromises.push(promise)
       }
     })
@@ -44,7 +50,7 @@ async function main() {
     const thdPromises = []
     getThdResponse.forEach(async record => {
       if (record.dossier === imb_number) {
-        const promise = createDatasFile(record, 'thdDatas')
+        const promise = createDatasFile(record,  __dirname + '/datas/thdDatas.json')
         thdPromises.push(promise)
       }
     })

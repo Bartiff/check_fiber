@@ -16,7 +16,7 @@ async function freeRequest(localization, maxSites) {
         bbox: localization.lngNorth + ',' + localization.latEast + ',' + localization.lngSouth + ',' + localization.latWest,
       },
     })
-
+    
     return response.data
   } catch (error) {
     console.error('Erreur lors de la requête GET :', error)

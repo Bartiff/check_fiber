@@ -40,19 +40,20 @@ async function compareJSON(obj1, obj2) {
   return { isDifferent }
 }
 
-export async function createDatasFile(datas, filename) {
+export async function createDatasFile(datas, filepath) {
   let existingDatas = null
   try {
     const contentFile = await fs.readFile('./datas/' + filename + '.json', 'utf-8')
     existingDatas = JSON.parse(contentFile)
   } catch (error) {
     existingDatas = {}
-    await fs.writeFile('./datas/' + filename + '.json', JSON.stringify(existingDatas, null, 2), 'utf-8')
+    // console.log(join(process.cwd(), 'datas', 'test.json'))
+    await fs.writeFile(filepath, JSON.stringify(existingDatas, null, 2), 'utf-8')
     // console.error(error)
   }
   const comparisonData = await compareJSON(existingDatas, datas)
   if (comparisonData.isDifferent) {
-    await fs.writeFile('./datas/' + filename + '.json', JSON.stringify(datas, null, 2), 'utf-8')
+    await fs.writeFile(filepath, JSON.stringify(datas, null, 2), 'utf-8')
   }
   
   return comparisonData
