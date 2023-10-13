@@ -4,8 +4,8 @@ import { dirname } from 'path'
 import dotenv from 'dotenv'
 import { freeRequest } from './src/freeRequest.js'
 import { thdRequest } from './src/thdRequest.js'
-import { senSMS } from './src/senSMS.js'
-import { createDatasFile, pause } from './src/helpers.js'
+import { sendSMS } from './src/sendSMS.js'
+import { createDatasFile } from './src/helpers.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -40,10 +40,8 @@ async function main() {
     })
     const freeResponses = await Promise.all(freePromises)
     freeStatus = freeResponses.find(resp => resp !== null)
-    await senSMS('Free', freeStatus, sms_config)
-
-    // 10 second pause
-    await pause(10000)
+    const freeSms = await sendSMS('Free', freeStatus, sms_config)
+    console.info(freeSms.message ? freeSms.message : 'Un SMS a été envoyé.')
 
     // Run the THD request
     const getThdResponse = await thdRequest(localization, maxSites)
@@ -56,7 +54,8 @@ async function main() {
     })
     const thdResponses = await Promise.all(thdPromises)
     thdStatus = thdResponses.find(resp => resp !== null)
-    await senSMS('THD', thdStatus, sms_config)
+    const thdSms = await sendSMS('THD', thdStatus, sms_config)
+    console.info(thdSms.message ? thdSms.message : 'Un SMS a été envoyé.')
 
   } catch (error) {
     console.error('Une erreur s\'est produite :', error)

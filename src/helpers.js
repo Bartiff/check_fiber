@@ -40,10 +40,11 @@ async function compareJSON(obj1, obj2) {
   return { isDifferent }
 }
 
+// 
 export async function createDatasFile(datas, filepath) {
   let existingDatas = null
   try {
-    const contentFile = await fs.readFile('./datas/' + filename + '.json', 'utf-8')
+    const contentFile = await fs.readFile(filepath, 'utf-8')
     existingDatas = JSON.parse(contentFile)
   } catch (error) {
     existingDatas = {}
@@ -57,9 +58,4 @@ export async function createDatasFile(datas, filepath) {
   }
   
   return comparisonData
-}
-
-export async function pause(milliseconds) {
-  
-  return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }

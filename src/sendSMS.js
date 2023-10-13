@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-async function senSMS(provider, datas, config) {
+async function sendSMS(provider, datas, config) {
   if (datas.isDifferent) {
     let message = provider + ' : ' + 'des changements ont eu lieu.'
     if (datas.addedKeys.length > 0) {
@@ -12,7 +12,11 @@ async function senSMS(provider, datas, config) {
     if (datas.changedKeys.length > 0) {
       message += ` - Modifications : ${datas.changedKeys.join(', ')}`
     }
-    console.log(message)
+    console.info(message)
+
+    // 10 second pause
+    console.info('Waiting for 10 sec. to send the SMS...')
+    await new Promise((resolve) => setTimeout(resolve, 10000))
 
     try {
       const response = await axios.post('https://smsapi.free-mobile.fr/sendmsg', {
@@ -20,16 +24,18 @@ async function senSMS(provider, datas, config) {
         pass: config.pass,
         msg: message
       })
-  
+      
       return response.data
     } catch (error) {
       console.error('Erreur lors de l\'envoi du SMS :', error)
       throw error
     }
   } else {
-    console.info(provider + ' n\'a pas publié de changements.')
+    return {
+      'success' : false,
+      'message' : provider + ' n\'a pas publié de changements.'
+    }
   }
-
 }
 
-export { senSMS }
+export { sendSMS }
