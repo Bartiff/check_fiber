@@ -1,6 +1,19 @@
 import axios from 'axios'
 
-async function sendSMS(provider, datas, config) {
+/**
+ * Sends an SMS notification based on the differences in data.
+ *
+ * @param {string} provider - The name of the data provider.
+ * @param {Object} datas - The comparison result object obtained from compareJSON.
+ * @param {boolean} datas.isDifferent - Indicates whether the data has changed.
+ * @param {string[]} datas.addedKeys - Array of keys added in the data.
+ * @param {string[]} datas.removedKeys - Array of keys removed in the data.
+ * @param {string[]} datas.changedKeys - Array of keys with changed values in the data.
+ * @async
+ * @throws {Error} If the SMS sending encounters an error.
+ * @returns {Promise<Object>} A promise that resolves to the response data from the SMS API.
+ */
+async function sendSMS(provider, datas) {
   if (datas.isDifferent) {
     let message = provider + ' : ' + 'des changements ont eu lieu.'
     if (datas.addedKeys.length > 0) {
@@ -20,8 +33,8 @@ async function sendSMS(provider, datas, config) {
 
     try {
       const response = await axios.post('https://smsapi.free-mobile.fr/sendmsg', {
-        user: config.user,
-        pass: config.pass,
+        user: process.env.SMS_USER,
+        pass: process.env.SMS_PASS,
         msg: message
       })
       
