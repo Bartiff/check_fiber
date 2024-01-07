@@ -54,7 +54,6 @@ class MegalisProvider extends Provider {
    * @instance
    */
   getSpecificDatas(provider_name, response_datas) {
-    // Implémentez la logique spécifique à FreeProvider ici
     return response_datas.features
       .filter(feature => feature.properties.ref_technique === this.getDefaultImbNumber())
       .map(feature => feature.properties)

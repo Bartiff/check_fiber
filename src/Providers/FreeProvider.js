@@ -52,7 +52,6 @@ class FreeProvider extends Provider {
    * @instance
    */
   getSpecificDatas(provider_name, response_datas) {
-    // Implémentez la logique spécifique à FreeProvider ici
     return response_datas.features
       .filter(feature => feature.properties.building_id === this.getDefaultImbNumber())
       .map(feature => feature.properties)
