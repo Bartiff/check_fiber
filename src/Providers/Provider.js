@@ -1,4 +1,6 @@
 import fs from 'fs/promises'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import { compareJSON } from '../helpers.js'
 
 /**
@@ -20,6 +22,9 @@ class Provider {
     this.localization = localization || this.getDefaultLocalization()
     this.maxSites = maxSites || this.getDefaultMaxSites()
     this.imbNumber = imbNumber || this.getDefaultImbNumber()
+
+    const currentDir = path.dirname(fileURLToPath(import.meta.url))
+    this.datasDir = path.join(currentDir, '../../datas')
   }
 
   /**
@@ -101,9 +106,9 @@ class Provider {
   async formatDatasProvider(provider_name, response_datas) {
     const Promises = []
     const specificDatas = this.getSpecificDatas(provider_name, response_datas)
-
+    
     specificDatas.forEach(async (data) => {
-      const promise = this.writeFile(data, `./datas/${provider_name}Datas.json`)
+      const promise = this.writeFile(data, this.datasDir + `/${provider_name}Datas.json`)
       Promises.push(promise)
     })
 
